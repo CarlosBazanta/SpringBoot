@@ -39,7 +39,7 @@ public class AppControler {
         return "login";
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public String viewHome(Model model) {
         model.addAttribute("user",userServiceRepository.userList());
         return "index";
