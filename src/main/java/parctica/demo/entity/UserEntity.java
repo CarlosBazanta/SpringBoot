@@ -63,6 +63,23 @@ public class UserEntity {
         this.name = name;
     }
 
+    public UserEntity(){
 
+    }
+
+    public UserEntity(String name, String username, String email, String password){
+        this.email=email;
+        this.username=username;
+        this.name=name;
+        this.password=password;
+    }
+
+    public UserEntity(String name, String username, String email, String password ,Long id){
+        this.email=email;
+        this.username=username;
+        this.name=name;
+        this.id=id;
+        this.password=password;
+    }
 
 }

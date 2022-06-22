@@ -1,45 +1,48 @@
 package parctica.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import parctica.demo.entity.UserEntity;
-import parctica.demo.repository.UserRepository;
+import parctica.demo.repository.UserServiceRepository;
 
 @Controller
 public class AppControler {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserServiceRepository userServiceRepository;
 
-    @GetMapping("")
-    public String loginView(){
-
-        return "living";
-
+    @ModelAttribute("user")
+    public UserEntity returnNewUser(){
+        return new UserEntity();
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new UserEntity() {
-        });
+    public String showRegistrationForm() {
+        return"register";
+    }
+        
+    
 
-        return"signup_form";
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") UserEntity userEntity ){
+        userServiceRepository.saveEntity(userEntity);
+
+        return "redirect:/register?succes";
     }
 
-    @PostMapping("/process_register")
+    @GetMapping("/login")
+    public String viewLogin(){
+        return "login";
+    }
 
-    public String processRegister(UserEntity userEntity){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode((userEntity.getPassword()));
-        userEntity.setPassword(encodedPassword);
-
-        userRepository.save(userEntity);
-
-        return"register-succes";
+    @GetMapping("")
+    public String viewHome(Model model) {
+        model.addAttribute("user",userServiceRepository.userList());
+        return "index";
     }
 
 }
