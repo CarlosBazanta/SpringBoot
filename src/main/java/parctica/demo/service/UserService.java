@@ -13,6 +13,7 @@ import parctica.demo.entity.UserEntity;
 import parctica.demo.repository.UserRepository;
 import parctica.demo.repository.UserServiceRepository;
 
+
 @Service
 public class UserService implements UserServiceRepository{
 
@@ -30,9 +31,9 @@ public class UserService implements UserServiceRepository{
     @Override
     public UserEntity saveEntity(UserEntity userEntity){
         UserEntity user = new UserEntity(
-            userEntity.getEmail(),
+                userEntity.getName(),
             userEntity.getUsername(),
-            userEntity.getName(),
+            userEntity.getEmail(),
             passwordEncoder.encode(userEntity.getPassword())
 
         );
@@ -47,6 +48,7 @@ public class UserService implements UserServiceRepository{
 
         if(userEntity == null){
             throw new UsernameNotFoundException("Usuario o password inválidos");
+
             
         }
         return new User(userEntity.getEmail(),userEntity.getPassword(), null);
