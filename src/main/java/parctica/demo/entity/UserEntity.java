@@ -1,6 +1,7 @@
 package parctica.demo.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "user")
@@ -22,6 +23,18 @@ public class UserEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+    private Collection<RoleEntity> roleEntity;
+
+    public Collection<RoleEntity> getRole() {
+        return roleEntity;
+    }
+
+    public void setRole(Collection<RoleEntity> roleEntity) {
+        this.roleEntity = roleEntity;
+    }
 
     public long getId() {
         return id;
@@ -67,19 +80,21 @@ public class UserEntity {
 
     }
 
-    public UserEntity(String name, String username, String email, String password){
+    public UserEntity(String name, String username, String email, String password,Collection<RoleEntity> roleEntity){
         this.email=email;
         this.username=username;
         this.name=name;
         this.password=password;
+        this.roleEntity = roleEntity;
     }
 
-    public UserEntity(String name, String username, String email, String password ,Long id){
+    public UserEntity(String name, String username, String email, String password ,Long id,Collection<RoleEntity> roleEntity){
         this.email=email;
         this.username=username;
         this.name=name;
         this.id=id;
         this.password=password;
+        this.roleEntity = roleEntity;
     }
 
 }

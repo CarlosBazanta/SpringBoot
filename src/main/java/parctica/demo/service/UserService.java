@@ -1,14 +1,20 @@
 package parctica.demo.service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import parctica.demo.entity.RoleEntity;
 import parctica.demo.entity.UserEntity;
 import parctica.demo.repository.UserRepository;
 import parctica.demo.repository.UserServiceRepository;
@@ -34,7 +40,9 @@ public class UserService implements UserServiceRepository{
                 userEntity.getName(),
             userEntity.getUsername(),
             userEntity.getEmail(),
-            passwordEncoder.encode(userEntity.getPassword())
+            passwordEncoder.encode(userEntity.getPassword()),
+                Arrays.asList(new RoleEntity("ROLE_USER"))
+
 
         );
 
@@ -43,15 +51,19 @@ public class UserService implements UserServiceRepository{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        
+
         UserEntity userEntity = userRepository.findByEmail(username);
 
-        if(userEntity == null){
+        if (userEntity == null) {
             throw new UsernameNotFoundException("Usuario o password inválidos");
 
-            
+
         }
-        return new User(userEntity.getEmail(),userEntity.getPassword(), null);
+        return new User(userEntity.getEmail(),userEntity.getPassword(), mapAuthority(userEntity.getRole()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapAuthority(Collection<RoleEntity> roleEntities){
+        return roleEntities.stream().map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getAuthority())).collect(Collectors.toList());
     }
 
     @Override
