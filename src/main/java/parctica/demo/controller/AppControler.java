@@ -20,6 +20,11 @@ public class AppControler {
         return new UserEntity();
     }
 
+    @ModelAttribute("homeUser")
+    public UserEntity returnNewHomeUser(){
+        return new UserEntity();
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm() {
         return"register";
@@ -44,5 +49,13 @@ public class AppControler {
         model.addAttribute("user",userServiceRepository.userList());
         return "index";
     }
+
+    @PostMapping("/")
+    public String homeRegister(@ModelAttribute("homeUser") UserEntity userEntity ){
+        userServiceRepository.saveEntity(userEntity);
+
+        return "redirect:/?succes";
+    }
+
 
 }

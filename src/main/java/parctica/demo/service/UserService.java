@@ -50,14 +50,12 @@ public class UserService implements UserServiceRepository{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        UserEntity userEntity = userRepository.findByEmail(username);
+        UserEntity userEntity = userRepository.findByEmail(email);
 
         if (userEntity == null) {
             throw new UsernameNotFoundException("Usuario o password inválidos");
-
-
         }
         return new User(userEntity.getEmail(),userEntity.getPassword(), mapAuthority(userEntity.getRole()));
     }
