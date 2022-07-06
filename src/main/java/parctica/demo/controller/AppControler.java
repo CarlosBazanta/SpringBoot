@@ -45,9 +45,15 @@ public class AppControler {
     }
 
     @GetMapping("/")
-    public String viewHome(Model model) {
+    public String viewHomeAdmin(Model model) {
         model.addAttribute("user",userServiceRepository.userList());
         return "index";
+    }
+
+    @GetMapping("/home")
+    public String viewHomeUser(Model model) {
+        model.addAttribute("user",userServiceRepository.userList());
+        return "home";
     }
 
     @PostMapping("/")

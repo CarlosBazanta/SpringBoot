@@ -24,6 +24,17 @@ public class UserEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String license;
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 
     private Collection<RoleEntity> roleEntity;
@@ -80,20 +91,22 @@ public class UserEntity {
 
     }
 
-    public UserEntity(String name, String username, String email, String password,Collection<RoleEntity> roleEntity){
+    public UserEntity(String name, String username, String email, String password,String license,Collection<RoleEntity> roleEntity){
         this.email=email;
         this.username=username;
         this.name=name;
         this.password=password;
+        this.license=license;
         this.roleEntity = roleEntity;
     }
 
-    public UserEntity(String name, String username, String email, String password ,Long id,Collection<RoleEntity> roleEntity){
+    public UserEntity(String name, String username,String license, String email, String password ,Long id,Collection<RoleEntity> roleEntity){
         this.email=email;
         this.username=username;
         this.name=name;
         this.id=id;
         this.password=password;
+        this.license=license;
         this.roleEntity = roleEntity;
     }
 
