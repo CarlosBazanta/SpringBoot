@@ -24,7 +24,7 @@
         <a class="navbar-brand" href="#" th:href="@{/home}">Home</a>
     </div>
     <ul class="nav navbar-nav" style="position: relative;
-									margin-left: 85%">
+									position-left: 85%">
         <li sec:authorize="isAuthenticated()">
             <a th:href="@{/logout}">Cerrar sesión</a></li>
     </ul>

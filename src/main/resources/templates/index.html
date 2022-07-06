@@ -57,7 +57,6 @@
 	</div>
 
 	<br>
-	<br>
 
 	<div class="container">
 		<div class="row">
@@ -90,7 +89,18 @@
 							type="password" id="password" class="form-control" th:field="*{password}">
 					</div>
 
+					<br>
+
+					<select id="license" name="select" th:field="*{license}">
+						<option value="ROLE_USER"   selected>Usuario</option>
+						<option value="ROLE_ADMIN"  >Administrador</option>
+
+					</select>
+
+
+
 					<div class="form-group">
+						<br>
 						<button type="submit" class="btn btn-success">Registrar</button>
 					</div>
 				</form>
