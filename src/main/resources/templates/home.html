@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Home</title>
-  <!-- CSS only -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/876/876316.png" sizes="32x32" type = "image/x-icon">
+    <!-- CSS only -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
@@ -18,7 +19,7 @@
     <ul class="nav navbar-nav" style="position: relative;
 									position-left: 85%">
         <li sec:authorize="isAuthenticated()">
-            <a th:href="@{/logout}">Cerrar sesión</a></li>
+            <a class="btn btn-primary" th:href="@{/logout}">Cerrar sesión</a></li>
     </ul>
 </nav>
 
